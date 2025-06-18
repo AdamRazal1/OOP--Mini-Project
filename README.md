@@ -1,17 +1,37 @@
-### Student Course Registration System ###
+# 🎓 Student Course Registration System
 
-Entities Involved:
-- User (Base class)
-- Student (Inherit from User)
-- Admin (Inherit from User)
-- Course
+A simple academic system designed to manage course registration processes for both **students** and **administrators**, built with object-oriented principles.
 
-Modules:
-- Login/logout for students and admin
-- Admin add/remove course
-- Admin views all courses
-- Admin views all students in the respective course
-- Student views all courses
-- Student register/drop course
-- Student modifies course (eg: Change Section)
-- Student views registered course
+---
+
+## 🧩 Entities
+
+### 👤 User *(Base Class)*
+### 🎓 Student *(Inherits from User)*
+### 🛠️ Admin *(Inherits from User)*
+### 📚 Course
+
+---
+
+## 🚀 Modules & Features
+
+### 🔐 Authentication
+- Login/Logout functionality for:
+  - Admin
+  - Student
+
+### 👩‍🏫 Admin Interface
+- ➕ Add Course
+- ❌ Remove Course
+- 📋 View All Courses
+- 👥 View Enrolled Students by Course
+
+### 👨‍🎓 Student Interface
+- 📚 View All Courses Available
+- ✅ Register Course
+- ❌ Drop Course
+- ✏️ Modify Registered Course (e.g., Change Section)
+- 📋 View Registered Courses
+
+---
+
