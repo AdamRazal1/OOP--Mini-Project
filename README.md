@@ -1,7 +1,5 @@
 # 🎓 Student Course Registration System
 
----
-
 ## 🧩 Entities
 
 ### 👤 User *(Base Class)*
