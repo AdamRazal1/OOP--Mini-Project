@@ -1,7 +1,5 @@
 # 🎓 Student Course Registration System
 
-A simple academic system designed to manage course registration processes for both **students** and **administrators**, built with object-oriented principles.
-
 ---
 
 ## 🧩 Entities
