@@ -123,10 +123,11 @@ class Course{
 
 
 public class StudentRegistrationSystem {
+
     public static Admin admin;
     public static ArrayList<Student> students;
     public static ArrayList<Course> courses;
-    public static User currentUser = null;
+    public static User currentUser = null; // Creating current User for dynamic runtime
     public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args){
@@ -157,7 +158,9 @@ public class StudentRegistrationSystem {
                 } else if(choice == 4){
                     logout();
                 }
-            } 
+            } else if(currentUser instanceof Admin){
+                // Admin functionalities
+            }
         }
 
     }
@@ -186,7 +189,7 @@ public class StudentRegistrationSystem {
     public static void login(String userId, String password) {
         // Check for Admin login
         if (admin.getUserId().equalsIgnoreCase(userId) && admin.getPassword().equals(password)) {
-            currentUser = admin;
+            currentUser = admin; // dynamic runtime
             System.out.println("Admin login successful!");
             admin.displayMenu();
         }
@@ -194,7 +197,7 @@ public class StudentRegistrationSystem {
         // Check for Student login
         for (Student student : students) {
             if (student.getUserId().equalsIgnoreCase(userId) && student.getPassword().equals(password)) {
-                currentUser = student;
+                currentUser = student; // dynamic runtime
                 System.out.println("Student login successful! Welcome, " + student.getUserId());
                 student.displayMenu();
             }
@@ -298,6 +301,18 @@ public class StudentRegistrationSystem {
             System.out.println(toRemove.getCourseName() + "Course deleted successfully!");
         } else {
             System.out.println("Course not found!");
+        }
+    }
+
+    public static void viewAllStudents(){
+        for(Student student : students){
+            System.out.println(student);
+        }
+    }
+
+    public static void viewAllCourses(){
+        for(Course course : courses){
+            System.out.println(course);
         }
     }
 }
