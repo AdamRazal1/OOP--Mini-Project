@@ -235,63 +235,61 @@ public class StudentRegistrationSystem {
         }
     }
 
-public static void addNewCourse(Admin admin){
+    public static void addNewCourse(Admin admin){
 
-    System.out.println("Enter Course Name: ");
-    String courseName = scanner.nextLine();
+        System.out.println("Enter Course Name: ");
+        String courseName = scanner.nextLine();
 
-    System.out.println("Enter Course Code: ");
-    String courseCode = scanner.nextLine();
+        System.out.println("Enter Course Code: ");
+        String courseCode = scanner.nextLine();
 
-    System.out.println("Enter Section: ");
-    String section = scanner.nextLine();
+        System.out.println("Enter Section: ");
+        String section = scanner.nextLine();
 
-    System.out.println("Enter Credit Hours: ");
-    String creditHours = scanner.nextLine();
+        System.out.println("Enter Credit Hours: ");
+        String creditHours = scanner.nextLine();
 
-    System.out.println("Enter Maximum Capacity: ");
-    int maxCapacity = scanner.nextInt();
-    scanner.nextLine(); // clear newline
+        System.out.println("Enter Maximum Capacity: ");
+        int maxCapacity = scanner.nextInt();
+        scanner.nextLine(); // clear newline
 
-    // Check if course code already exists
-    for (Course course : courses) {
-        if (course.getCourseCode().equalsIgnoreCase(courseCode)) {
-            System.out.println("A course with this code already exists!");
-            return;
-        }
-    }
-
-    Course newCourse = new Course(courseName, courseCode, section, creditHours, maxCapacity);
-    courses.add(newCourse);
-    System.out.println("Course added successfully!");
-}
-
-public static void deleteCurrentCourse(Admin admin){
-    
-    System.out.println("Enter Course Code to Delete: ");
-    String courseCode = scanner.nextLine();
-
-    Course toRemove = null;
-    for (Course course : courses) {
-        if (course.getCourseCode().equalsIgnoreCase(courseCode)) {
-            toRemove = course;
-            break;
-        }
-    }
-
-    if (toRemove != null) {
-        courses.remove(toRemove);
-
-        // Also remove this course from all students' enrolled lists
-        for (Student student : students) {
-            student.dropCourse(toRemove);
+        // Check if course code already exists
+        for (Course course : courses) {
+            if (course.getCourseCode().equalsIgnoreCase(courseCode)) {
+                System.out.println("A course with this code already exists!");
+                return;
+            }
         }
 
-        System.out.println(toRemove.getCourseName() + "Course deleted successfully!");
-    } else {
-        System.out.println("Course not found!");
+        Course newCourse = new Course(courseName, courseCode, section, creditHours, maxCapacity);
+        courses.add(newCourse);
+        System.out.println("Course added successfully!");
     }
-}
 
+    public static void deleteCurrentCourse(Admin admin){
+        
+        System.out.println("Enter Course Code to Delete: ");
+        String courseCode = scanner.nextLine();
 
+        Course toRemove = null;
+        for (Course course : courses) {
+            if (course.getCourseCode().equalsIgnoreCase(courseCode)) {
+                toRemove = course;
+                break;
+            }
+        }
+
+        if (toRemove != null) {
+            courses.remove(toRemove);
+
+            // Also remove this course from all students' enrolled lists
+            for (Student student : students) {
+                student.dropCourse(toRemove);
+            }
+
+            System.out.println(toRemove.getCourseName() + "Course deleted successfully!");
+        } else {
+            System.out.println("Course not found!");
+        }
+    }
 }
