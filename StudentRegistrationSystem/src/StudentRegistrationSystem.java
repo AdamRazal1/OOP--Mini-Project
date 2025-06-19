@@ -31,7 +31,12 @@ class Admin extends User{
 
     @Override
     public void displayMenu(){
-        System.out.println("Admin Menu");
+        System.out.println("\n--- Admin Menu ---");
+        System.out.println("1. Add a Course");
+        System.out.println("2. Remove a Course");
+        System.out.println("3. View All Courses");
+        System.out.println("4. View All Students");
+        System.out.println("5. Logout");
     }
 }
 
