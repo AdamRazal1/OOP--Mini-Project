@@ -28,22 +28,32 @@ public class StudentRegistrationSystem {
         login(userId, password);
 
         while(currentUser != null){
-            System.out.println("Enter your choice: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
 
             if(currentUser instanceof Student){
+
+                ((Student)currentUser).displayMenu();
+                System.out.println("Enter your choice: ");
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+
                 // Student functionalities
                 if(choice == 1){
-                    ((Student)currentUser).registerCourse();
+                    ((Student)currentUser).viewAvailableCourses();
                 } else if(choice == 2){
-                    ((Student)currentUser).dropCourse();
+                    ((Student)currentUser).registerCourse();
                 } else if(choice == 3){
-                    ((Student)currentUser).viewRegisteredCourses();
+                    ((Student)currentUser).dropCourse();
                 } else if(choice == 4){
+                    ((Student)currentUser).viewRegisteredCourses();
+                } else if(choice == 5){
                     logout();
                 }
             } else if(currentUser instanceof Admin){
+                ((Admin)currentUser).displayMenu();
+                System.out.println("Enter your choice: ");
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+
                 // Admin functionalities
                  if(choice == 1){
                     ((Admin)currentUser).addNewCourse();
@@ -65,9 +75,7 @@ public class StudentRegistrationSystem {
         // Check for Admin login
         if (admin.getUserId().equalsIgnoreCase(userId) && admin.getPassword().equals(password)) {
             currentUser = admin; // dynamic runtime
-            System.out.println("Admin login successful!");
-            admin.displayMenu();
-
+            System.out.println("\nAdmin login successful!");
         }
 
         // Check for Student login
@@ -75,7 +83,6 @@ public class StudentRegistrationSystem {
             if (student.getUserId().equalsIgnoreCase(userId) && student.getPassword().equals(password)) {
                 currentUser = student; // dynamic runtime
                 System.out.println("Student login successful! Welcome, " + student.getUserId());
-                student.displayMenu();
             }
         }
 
@@ -83,7 +90,7 @@ public class StudentRegistrationSystem {
 
     public static void logout(){
         currentUser = null;
-        System.out.println("Logout successful!");
+        System.out.println("\nLogout successful!");
     }
 
-    }
+}

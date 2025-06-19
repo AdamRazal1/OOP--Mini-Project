@@ -42,7 +42,7 @@ public class Student extends User{
             }
         }
 
-        scanner.close();
+
     }
 
     public void dropCourse(){
@@ -61,7 +61,6 @@ public class Student extends User{
         }
         System.out.println("Course not found in your registered courses!");
 
-        scanner.close();
     }
 
     public void viewRegisteredCourses(){
@@ -70,13 +69,21 @@ public class Student extends User{
         }
     }
 
+    public void viewAvailableCourses(){
+        System.out.println("\n--- Available Courses ---");
+        for(Course course : courses){
+            System.out.println(course);
+        }
+    }
+
     // Demonstrate Polymorphism - overriding abstract method
     @Override
     public void displayMenu(){
         System.out.println("\n--- Student Menu ---");
-        System.out.println("1. Register for a Course");
-        System.out.println("2. Drop a Course");
-        System.out.println("3. View My Registered Courses");
-        System.out.println("4. Logout");
+        System.err.println("1. View Available Courses");
+        System.out.println("2. Register for a Course");
+        System.out.println("3. Drop a Course");
+        System.out.println("4. View My Registered Courses");
+        System.out.println("5. Logout");
     }
 }

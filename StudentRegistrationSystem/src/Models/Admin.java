@@ -40,7 +40,7 @@ public class Admin extends User{
 
         System.out.println("Enter Maximum Capacity: ");
         int maxCapacity = scanner.nextInt();
-        scanner.nextLine(); // clear newline
+        // scanner.nextLine(); // clear newline
 
         // Check if course code already exists
         for (Course course : courses) {
@@ -54,7 +54,6 @@ public class Admin extends User{
         courses.add(newCourse);
         System.out.println("Course added successfully!");
 
-        scanner.close();
     }
 
     public void deleteCurrentCourse(){
@@ -80,12 +79,10 @@ public class Admin extends User{
                 student.dropCourse(toRemove);
             }
 
-            System.out.println(toRemove.getCourseName() + "Course deleted successfully!");
+            System.out.println(toRemove.getCourseName() + " deleted successfully!");
         } else {
             System.out.println("Course not found!");
         }
-
-        scanner.close();
     }
 
     public void viewAllCourses(){
@@ -96,7 +93,7 @@ public class Admin extends User{
 
     public void viewAllStudents(){
         for(Student student : students){
-            System.out.println(student);
+            System.out.println(student.getUserId());
         }
     }
 }
