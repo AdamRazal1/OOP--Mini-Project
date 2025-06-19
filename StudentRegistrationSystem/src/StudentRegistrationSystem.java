@@ -141,14 +141,19 @@ public class StudentRegistrationSystem {
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            if(choice == 1){
-                registerCourse((Student) currentUser);
-            } else if(choice == 2){
-                dropCourse((Student) currentUser);
-            } else if(choice == 3){
-                viewRegisteredCourses((Student) currentUser);
-            } else if(choice == 4){
-                logout();
+            if(currentUser instanceof Student){
+                // Student functionalities
+                if(choice == 1){
+                    registerCourse((Student) currentUser);
+                } else if(choice == 2){
+                    dropCourse((Student) currentUser);
+                } else if(choice == 3){
+                    viewRegisteredCourses((Student) currentUser);
+                } else if(choice == 4){
+                    logout();
+                }
+            } else if(currentUser instanceof Admin){
+                // Admin functionalities
             }
         }
 
