@@ -157,9 +157,7 @@ public class StudentRegistrationSystem {
                 } else if(choice == 4){
                     logout();
                 }
-            } else if(currentUser instanceof Admin){
-                // Admin functionalities
-            }
+            } 
         }
 
     }
@@ -245,7 +243,7 @@ public class StudentRegistrationSystem {
         }
     }
 
-    public static void addNewCourse(Admin admin){
+    public static void addNewCourse(){
 
         System.out.println("Enter Course Name: ");
         String courseName = scanner.nextLine();
