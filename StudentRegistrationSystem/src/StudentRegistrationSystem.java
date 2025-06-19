@@ -160,6 +160,19 @@ public class StudentRegistrationSystem {
                 }
             } else if(currentUser instanceof Admin){
                 // Admin functionalities
+                 if(choice == 1){
+                    addNewCourse((Admin) currentUser);
+                } else if(choice == 2){
+                    deleteCurrentCourse(admin);
+                } else if(choice == 3){
+                    viewAllCourses();
+                } else if(choice == 4){
+                    viewAllStudents();
+                } else if(choice == 5){
+                    viewAllCourses();
+                } else{
+                    logout();
+                }
             }
         }
 
