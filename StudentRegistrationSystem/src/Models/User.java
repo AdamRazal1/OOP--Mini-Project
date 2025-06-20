@@ -19,9 +19,7 @@ public abstract class User{
     public String getPassword(){
         return password;
     }
-
-
-
+    
     // Abstract method for polymorphism
     public abstract void displayMenu();
 }

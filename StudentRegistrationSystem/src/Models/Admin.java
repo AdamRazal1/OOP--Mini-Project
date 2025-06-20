@@ -18,15 +18,16 @@ public class Admin extends User{
         System.out.println("1. Add a Course");
         System.out.println("2. Remove a Course");
         System.out.println("3. View All Courses");
-        System.out.println("4. View All Students");
-        System.out.println("5. Logout");
+        System.out.println("4. View Course Details");
+        System.out.println("5. View All Students");
+        System.out.println("6. Logout");
     }
 
     public void addNewCourse(){
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter Course Name: ");
+        System.out.println("\nEnter Course Name: ");
         String courseName = scanner.nextLine();
 
         System.out.println("Enter Course Code: ");
@@ -45,14 +46,14 @@ public class Admin extends User{
         // Check if course code already exists
         for (Course course : courses) {
             if (course.getCourseCode().equalsIgnoreCase(courseCode)) {
-                System.out.println("A course with this code already exists!");
+                System.out.println("\nA course with this code already exists!");
                 return;
             }
         }
 
         Course newCourse = new Course(courseName, courseCode, section, creditHours, maxCapacity);
         courses.add(newCourse);
-        System.out.println("Course added successfully!");
+        System.out.println("\nCourse added successfully!");
 
     }
 
@@ -60,7 +61,7 @@ public class Admin extends User{
 
         Scanner scanner = new Scanner(System.in);
         
-        System.out.println("Enter Course Code to Delete: ");
+        System.out.println("\nEnter Course Code to Delete: ");
         String courseCode = scanner.nextLine();
 
         Course toRemove = null;
@@ -76,24 +77,48 @@ public class Admin extends User{
 
             // Also remove this course from all students' enrolled lists
             for (Student student : students) {
-                student.dropCourse(toRemove);
+                student.removeEnrolledStudents(toRemove);
             }
 
-            System.out.println(toRemove.getCourseName() + " deleted successfully!");
+            System.out.println("\n" + toRemove.getCourseName() + " deleted successfully!");
         } else {
-            System.out.println("Course not found!");
+            System.out.println("\nCourse not found!");
         }
     }
 
     public void viewAllCourses(){
-        for(Course course : courses){
-            System.out.println(course);
+        if (courses.isEmpty()) {
+            System.out.println("\nNo courses available.");
+        }else {
+            System.out.println("\n--- List of Courses ---");
+
+            for(int i = 0; i < courses.size(); i++) {
+                Course course = courses.get(i);
+                System.out.println((i+1) + ". " + course);
+            }  
+        }
+    }
+
+    public void viewCourseDetails(){
+
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Enter Course Code to View Details: ");
+        String courseCode = scanner.nextLine();
+
+        for (Course course : courses) {
+            if (course.getCourseCode().equalsIgnoreCase(courseCode)) {
+                course.listDetails();
+            }
         }
     }
 
     public void viewAllStudents(){
-        for(Student student : students){
-            System.out.println(student.getUserId());
+        System.out.println("\n--- List of Students ---");
+
+        for(int i = 0; i < students.size(); i++) {
+            Student student = students.get(i);
+            System.out.println((i + 1) + ". " + student.getUserId());
         }
     }
 }

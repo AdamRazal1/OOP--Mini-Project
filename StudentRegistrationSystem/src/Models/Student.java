@@ -13,14 +13,6 @@ public class Student extends User{
         enrolledCourses = new ArrayList<>();
     }
 
-    public void enrollCourse(Course course){
-        enrolledCourses.add(course);
-    }
-
-    public void dropCourse(Course course){
-        enrolledCourses.remove(course);
-    }
-
     public ArrayList<Course> getEnrolledCourses(){
         return enrolledCourses;
     }
@@ -28,34 +20,41 @@ public class Student extends User{
     public void registerCourse(){
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter course code: ");
+        System.out.println("\nEnter course code: ");
         String courseCode = scanner.nextLine();
 
         for(Course course : courses){
             if(course.getCourseCode().equalsIgnoreCase(courseCode)){
-                if(this.getEnrolledCourses().size() < course.getMaxCapacity()){
-                    this.enrollCourse(course);
-                    System.out.println(course.getCourseName() + " Course registered successfully!");
+                if(course.getCurrentCapacity() < course.getMaxCapacity()){
+                    enrolledCourses.add(course);
+                    System.out.println("You have register " + course.getCourseName() + " successfully!");
+                    course.addCurrentCapacity();
+                    course.addEnrolledStudent(this.getUserId());
                 } else{
-                    System.out.println("Course is not found!");
+                    System.out.println("Course is full! Cannot register.");
                 }
+                break; // Exit loop after finding the course
             }
         }
+    }
 
-
+    public void removeEnrolledStudents(Course course){
+            enrolledCourses.remove(course);
+            course.minusCurrentCapacity(); // Decrease the current capacity    
     }
 
     public void dropCourse(){
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter course code: ");
+        System.out.println("\nEnter course code: ");
         String courseCode = scanner.nextLine();
 
         for(Course course : enrolledCourses){
             if(course.getCourseCode().equalsIgnoreCase(courseCode)){
                 enrolledCourses.remove(course);
-                System.out.println(course.getCourseName() + " Course dropped successfully!");
+                course.minusCurrentCapacity(); // Decrease the current capacity
+                System.out.println(course.getCourseName() + " dropped successfully!");
                 return;
             }
         }
