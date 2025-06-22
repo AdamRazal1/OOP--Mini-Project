@@ -17,11 +17,18 @@ public class Student extends User{
         return enrolledCourses;
     }
 
-    public void registerCourse(){
+    public void registerCourse() throws DuplicateCourseException{
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\nEnter course code: ");
         String courseCode = scanner.nextLine();
+
+        // Check if courseCode is already registered
+        for(Course course : enrolledCourses){
+            if(course.getCourseCode().equalsIgnoreCase(courseCode)){
+                throw new DuplicateCourseException("You have already registered for this course!");
+            }
+        }
 
         for(Course course : courses){
             if(course.getCourseCode().equalsIgnoreCase(courseCode)){
@@ -33,9 +40,12 @@ public class Student extends User{
                 } else{
                     System.out.println("Course is full! Cannot register.");
                 }
-                break; // Exit loop after finding the course
+                return; // Exit the function if the course is found
             }
         }
+
+        System.out.println("Course with code " + courseCode + " not found."); // If loop completes, course wasn't found
+
     }
 
     public void removeEnrolledStudents(Course course){

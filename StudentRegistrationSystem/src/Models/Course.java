@@ -10,7 +10,7 @@ public class Course{
     private int maxCapacity;
     private int currentCapacity;
 
-    private ArrayList<String> enrolledStudents;
+    private ArrayList<String> enrolledStudents; 
 
     public Course(String courseName, String courseCode, String section, String creditHours, int maxCapacity){
         this.courseName = courseName;
