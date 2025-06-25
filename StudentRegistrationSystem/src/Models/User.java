@@ -1,11 +1,13 @@
 package Models;
+
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
-public abstract class User{
+public abstract class User{ // abstract class
     private String userId;
     private String password;
-    protected static ArrayList<Course> courses;  
+    protected static ArrayList<Course> courses;  // Association - User has many courses
 
 
     public User(String userId, String password){
@@ -22,19 +24,19 @@ public abstract class User{
         return password;
     }
 
-    public static User login(String userId, String password, ArrayList<User> allUser) throws LoginFailedException{
+    public static User login(String userId, String password, ArrayList<User> allUser) throws LoginFailedException{ // Exception Handling - Login failed
 
         for (User user : allUser) {
             if (user.getUserId().equalsIgnoreCase(userId) && user.getPassword().equals(password)) {
-                System.out.println("Student login successful! Welcome, " + user.getUserId());
+                JOptionPane.showMessageDialog(null, "Login successful! Welcome, " + user.getUserId());
                 return user;
             }
         }
-        throw new LoginFailedException("Invalid username or password. Please try again.");
+        throw new LoginFailedException("\nInvalid username or password. Please try again.");
     }
 
     public void logout(){
-        System.out.println(" Logout successfully!");
+        JOptionPane.showMessageDialog(null, "Logout successfully!");
     }
     
     // Abstract method for polymorphism

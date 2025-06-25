@@ -1,5 +1,6 @@
 package Models;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class Course{
     
@@ -10,7 +11,7 @@ public class Course{
     private int maxCapacity;
     private int currentCapacity;
 
-    private ArrayList<String> enrolledStudents; 
+    private ArrayList<String> enrolledStudents; // Association - Course has many enrolled students
 
     public Course(String courseName, String courseCode, String section, String creditHours, int maxCapacity){
         this.courseName = courseName;
@@ -63,21 +64,21 @@ public class Course{
     }
 
     public void listDetails() {
-        System.out.println("\nCourse Name: " + courseName);
-        System.out.println("Course Code: " + courseCode);
-        System.out.println("Section: " + section);
-        System.out.println("Credit Hours: " + creditHours);
-        System.out.println("Max Capacity: " + maxCapacity);
-        System.out.println("Current Capacity: " + currentCapacity);
-
-        if(enrolledStudents.isEmpty()) {
-            System.out.println("No students enrolled in this course.");
-        }else{
+        StringBuilder details = new StringBuilder();
+        details.append("Course Name: ").append(courseName).append("\n");
+        details.append("Course Code: ").append(courseCode).append("\n");
+        details.append("Section: ").append(section).append("\n");
+        details.append("Credit Hours: ").append(creditHours).append("\n");
+        details.append("Max Capacity: ").append(maxCapacity).append("\n");
+        details.append("Current Capacity: ").append(currentCapacity).append("\n\n");
+        if (enrolledStudents.isEmpty()) {
+            details.append("No students enrolled in this course.");
+        } else {
             for (int i = 0; i < enrolledStudents.size(); i++) {
-                System.out.println("Enrolled Student: ");
-                System.out.println((i+1) + ". " + enrolledStudents.get(i));
+                details.append(i + 1).append(". ").append(enrolledStudents.get(i)).append("\n");
             }
-        }     
+        }
+        JOptionPane.showMessageDialog(null, details.toString(), "Course Details", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override

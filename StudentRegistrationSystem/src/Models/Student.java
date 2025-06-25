@@ -1,9 +1,10 @@
 package Models;
+
 import java.util.ArrayList;
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 // Demonstrate Inheritance
-public class Student extends User{
+public class Student extends User { // Inheritance - Student is a subclass of User
 
     // Demonstrate Aggregation - 'has a' relationship between Student and Course
     private ArrayList<Course> enrolledCourses;
@@ -17,11 +18,9 @@ public class Student extends User{
         return enrolledCourses;
     }
 
-    public void registerCourse() throws DuplicateCourseException{
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("\nEnter course code: ");
-        String courseCode = scanner.nextLine();
+    public void registerCourse() throws DuplicateCourseException { // Exception handling - Detect duplicate registration
+        String courseCode = JOptionPane.showInputDialog(null, "Enter course code:");
+        if (courseCode == null) return;
 
         // Check if courseCode is already registered
         for(Course course : enrolledCourses){
@@ -34,65 +33,70 @@ public class Student extends User{
             if(course.getCourseCode().equalsIgnoreCase(courseCode)){
                 if(course.getCurrentCapacity() < course.getMaxCapacity()){
                     enrolledCourses.add(course);
-                    System.out.println("You have register " + course.getCourseName() + " successfully!");
                     course.addCurrentCapacity();
                     course.addEnrolledStudent(this.getUserId());
-                } else{
-                    System.out.println("Course is full! Cannot register.");
+                    JOptionPane.showMessageDialog(null, "You have registered for " + course.getCourseName() + " successfully!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Course is full! Cannot register.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                return; // Exit the function if the course is found
-            }
-        }
-
-        System.out.println("Course with code " + courseCode + " not found."); // If loop completes, course wasn't found
-
-    }
-
-    public void removeEnrolledStudents(Course course){
-            enrolledCourses.remove(course);
-            course.minusCurrentCapacity(); // Decrease the current capacity    
-    }
-
-    public void dropCourse(){
-
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("\nEnter course code: ");
-        String courseCode = scanner.nextLine();
-
-        for(Course course : enrolledCourses){
-            if(course.getCourseCode().equalsIgnoreCase(courseCode)){
-                enrolledCourses.remove(course);
-                course.minusCurrentCapacity(); // Decrease the current capacity
-                System.out.println(course.getCourseName() + " dropped successfully!");
                 return;
             }
         }
-        System.out.println("Course not found in your registered courses!");
 
+        JOptionPane.showMessageDialog(null, "Course with code " + courseCode + " not found.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    public void viewRegisteredCourses(){
-        for(Course course : this.getEnrolledCourses()){
-            System.out.println(course);
+    public void dropCourse() {
+        String courseCode = JOptionPane.showInputDialog(null, "Enter course code to drop:");
+        if (courseCode == null) return;
+
+        for(Course course : new ArrayList<>(enrolledCourses)){
+            if(course.getCourseCode().equalsIgnoreCase(courseCode)){
+                enrolledCourses.remove(course);
+                course.minusCurrentCapacity();
+                JOptionPane.showMessageDialog(null, course.getCourseName() + " dropped successfully!");
+                return;
+            }
         }
+        JOptionPane.showMessageDialog(null, "Course not found in your registered courses!", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    public void viewAvailableCourses(){
-        System.out.println("\n--- Available Courses ---");
+    public void viewRegisteredCourses() {
+        if(enrolledCourses.isEmpty()){
+            JOptionPane.showMessageDialog(null, "You have not registered for any courses.");
+            return;
+        }
+        StringBuilder msg = new StringBuilder("--- My Registered Courses ---\n");
+        for(Course course : enrolledCourses){
+            msg.append(course.toString()).append("\n");
+        }
+        JOptionPane.showMessageDialog(null, msg.toString());
+    }
+
+    public void viewAvailableCourses() {
+        if(courses.isEmpty()){
+            JOptionPane.showMessageDialog(null, "No courses available.");
+            return;
+        }
+        StringBuilder msg = new StringBuilder("--- Available Courses ---\n");
         for(Course course : courses){
-            System.out.println(course);
+            msg.append(course.toString()).append("\n");
         }
+        JOptionPane.showMessageDialog(null, msg.toString());
     }
 
-    // Demonstrate Polymorphism - overriding abstract method
-    @Override
+    public void removeEnrolledStudents(Course course) {
+        enrolledCourses.remove(course);
+        course.minusCurrentCapacity();
+    }
+
+    @Override // Polymorphism - method overloading from User
     public void displayMenu(){
-        System.out.println("\n--- Student Menu ---");
-        System.err.println("1. View Available Courses");
-        System.out.println("2. Register for a Course");
-        System.out.println("3. Drop a Course");
-        System.out.println("4. View My Registered Courses");
-        System.out.println("5. Logout");
+        String menu = "1. View Available Courses\n" +
+                      "2. Register for a Course\n" +
+                      "3. Drop a Course\n" +
+                      "4. View My Registered Courses\n" +
+                      "5. Logout";
+        JOptionPane.showMessageDialog(null, menu, "Student Menu", JOptionPane.PLAIN_MESSAGE);
     }
 }
